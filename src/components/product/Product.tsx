@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { addItemToCart } from "../../redux/cartSlice";
+import { useAppDispatch } from "../../redux/hooks";
 import { ProductType } from "../../types";
 import Text from "../generic/Text";
 
@@ -7,6 +9,12 @@ interface ProductInterface {
 }
 
 export default function Product({ product }: ProductInterface) {
+  const dispatch = useAppDispatch();
+
+  function addToCart(){
+    dispatch(addItemToCart(product))
+  }
+
   return (
     <Card>
       <Image src={require(`${product.image}`)} alt="image" />
@@ -17,8 +25,8 @@ export default function Product({ product }: ProductInterface) {
         <Text>{product.description}</Text>
       </CardAbout>
       <CardBottom>
-        <Text>{product.price}</Text>
-        <Button>Buy</Button>
+        <Text>{product.price} $</Text>
+        <Button onClick={addToCart}>Buy</Button>
       </CardBottom>
     </Card>
   );

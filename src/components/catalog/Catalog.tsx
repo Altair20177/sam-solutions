@@ -9,7 +9,7 @@ export default function Catalog() {
       name: "Card 1",
       description:
         "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perspiciatis, alias!",
-      price: "10$",
+      price: "10",
       image: "./assets/kranvagn.jpg",
     },
     {
@@ -17,15 +17,14 @@ export default function Catalog() {
       name: "Card 2",
       description:
         "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Totam magnam eum, repellat.",
-      price: "15$",
+      price: "15",
       image: "./assets/obj-277.jpg",
     },
     {
       id: "3",
       name: "Card 3",
-      description:
-        "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-      price: "25$",
+      description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+      price: "25",
       image: "./assets/obj-705a.jpg",
     },
     {
@@ -33,7 +32,7 @@ export default function Catalog() {
       name: "Card 4",
       description:
         "Lorem ipsum dolor sit, amet adipisicing elit. Perspiciatis, alias!",
-      price: "20$",
+      price: "20",
       image: "./assets/progetto-m35.jpg",
     },
     {
@@ -41,7 +40,7 @@ export default function Catalog() {
       name: "Card 5",
       description:
         "Lorem ipsum dolor, sit amet consect. Totam magnam eum, repellat dignissimos cupiditate sequi.",
-      price: "15$",
+      price: "15",
       image: "./assets/pzkpfw-7.jpg",
     },
     {
@@ -49,7 +48,7 @@ export default function Catalog() {
       name: "Card 6",
       description:
         "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perspiciatis, alias!",
-      price: "10$",
+      price: "10",
       image: "./assets/t-55a.jpg",
     },
     {
@@ -57,7 +56,7 @@ export default function Catalog() {
       name: "Card 7",
       description:
         "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perspiciatis, alias!",
-      price: "15$",
+      price: "15",
       image: "./assets/kranvagn.jpg",
     },
     {
@@ -65,7 +64,7 @@ export default function Catalog() {
       name: "Card 8",
       description:
         "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perspiciatis, alias!",
-      price: "15$",
+      price: "15",
       image: "./assets/obj-277.jpg",
     },
     {
@@ -73,7 +72,7 @@ export default function Catalog() {
       name: "Card 9",
       description:
         "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perspiciatis, alias!",
-      price: "30$",
+      price: "30",
       image: "./assets/obj-705a.jpg",
     },
     {
@@ -81,7 +80,7 @@ export default function Catalog() {
       name: "Card 10",
       description:
         "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perspiciatis, alias!",
-      price: "5$",
+      price: "5",
       image: "./assets/progetto-m35.jpg",
     },
     {
@@ -89,7 +88,7 @@ export default function Catalog() {
       name: "Card 11",
       description:
         "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perspiciatis, alias!",
-      price: "25$",
+      price: "25",
       image: "./assets/pzkpfw-7.jpg",
     },
   ];
