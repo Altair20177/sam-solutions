@@ -18,6 +18,7 @@ export default function Notification({ showMess = false }: NotificationProps) {
 const Wrapper = styled.div<NotificationProps>`
   opacity: ${(p) => (p.showMess ? 1 : 0)};
   overflow: ${(p) => (p.showMess ? "visible" : "hidden")};
+  z-index: ${(p) => (p.showMess ? 10 : -2)};
 
   transition: 0.6s;
   position: fixed;

@@ -34,9 +34,13 @@ export default function Cart() {
   }
 
   function buyProducts() {
-    setShowMess(true);
-    dispatch(removeAllItemsFromCart());
-    setTimeout(() => {setShowMess(false)}, 3000)
+    if (productsToBuy.cartItems.length !== 0) {
+      setShowMess(true);
+      dispatch(removeAllItemsFromCart());
+      setTimeout(() => {
+        setShowMess(false);
+      }, 3000);
+    }
   }
 
   return (
@@ -46,7 +50,7 @@ export default function Cart() {
           Cart
         </Text>
         <CartItems>
-          {productsToBuy.cartItems.length !== 0 &&
+          {productsToBuy.cartItems.length !== 0 ? (
             productsToBuy.cartItems.map((item: ProductType) => (
               <CartItem key={item.id}>
                 <Inside>
@@ -65,7 +69,12 @@ export default function Cart() {
                   />
                 </Inside>
               </CartItem>
-            ))}
+            ))
+          ) : (
+            <Text size={28} mt={20} align="center" bold>
+              Your Cart is empty!
+            </Text>
+          )}
         </CartItems>
         <Footer>
           <Total>
@@ -78,7 +87,7 @@ export default function Cart() {
         </Footer>
       </CartSection>
 
-      <Notification showMess={showMess}/>
+      <Notification showMess={showMess} />
     </>
   );
 }

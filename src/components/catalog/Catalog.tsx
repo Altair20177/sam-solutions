@@ -1,6 +1,14 @@
 import styled from "styled-components";
 import { ProductType } from "../../types";
 import Product from "../product/Product";
+import { ReactComponent as Cross } from "../header/icons/cross.svg";
+import { useState } from "react";
+import Text from "../generic/Text";
+
+enum Options {
+  PRICE = "price",
+  NAME = "name",
+}
 
 export default function Catalog() {
   const products: Array<ProductType> = [
@@ -93,17 +101,145 @@ export default function Catalog() {
     },
   ];
 
+  const [searchInput, setSearchInput] = useState<string>("");
+  const [sortParam, setSortParam] = useState<string>("");
+  const [productsToShow, setProductsToShow] =
+    useState<Array<ProductType>>(products);
+
+  function clearSearch() {
+    setSearchInput("");
+    setProductsToShow(products);
+  }
+
+  function sortByParametr(param: string) {
+    setSortParam(param);
+
+    switch (param) {
+      case Options.NAME: {
+        setProductsToShow(
+          products.sort((product1: ProductType, product2: ProductType) =>
+            product1.name > product2.name ? 1 : -1
+          )
+        );
+        break;
+      }
+      case Options.PRICE: {
+        setProductsToShow(
+          products.sort((product1: ProductType, product2: ProductType) =>
+            +product1.price > +product2.price ? 1 : -1
+          )
+        );
+        break;
+      }
+      default: {
+        setProductsToShow(products);
+      }
+    }
+  }
+
+  function onSearch(value: string) {
+    setSearchInput(value);
+
+    setProductsToShow(
+      value !== ""
+        ? products.filter(
+            (product: ProductType) =>
+              product.name.toLowerCase().includes(value.toLowerCase()) ||
+              product.price.includes(value.toLowerCase()) ||
+              product.description.toLowerCase().includes(value.toLowerCase())
+          )
+        : products
+    );
+  }
+
   return (
-    <AllProducts>
-      {products.map((product: ProductType) => {
-        return <Product product={product} key={product.id} />;
-      })}
-    </AllProducts>
+    <Div>
+      <Top>
+        <SearchBlock>
+          <Search
+            value={searchInput}
+            onChange={(e) => onSearch(e.target.value)}
+            placeholder="Item to search..."
+          />
+          <Img onClick={clearSearch}>
+            <Cross height={20} width={20} />
+          </Img>
+        </SearchBlock>
+        <SearchBlock>
+          <Text size={22} pr={10}>
+            Sort by:
+          </Text>
+          <Sort onChange={(e) => sortByParametr(e.target.value)}>
+            <option value="name">Name</option>
+            <option value="price">Price</option>
+          </Sort>
+        </SearchBlock>
+      </Top>
+      <AllProducts>
+        {productsToShow.length !== 0 ? (
+          productsToShow.map((product: ProductType) => {
+            return <Product product={product} key={product.id} />;
+          })
+        ) : (
+          <Text bold size={36} mt={50}>
+            There are no such products!
+          </Text>
+        )}
+      </AllProducts>
+    </Div>
   );
 }
 
 const AllProducts = styled.div`
-  width: 75%;
   display: flex;
   flex-wrap: wrap;
+`;
+
+const Div = styled.div`
+  width: 75%;
+`;
+
+const Search = styled.input`
+  width: 200px;
+  border-radius: 3px;
+  border: 1px solid black;
+  padding: 5px 10px;
+  font-size: 18px;
+`;
+
+const Sort = styled.select`
+  width: 100px;
+  border-radius: 3px;
+  border: 1px solid black;
+  padding: 5px 10px;
+  font-size: 18px;
+`;
+
+const Top = styled.div`
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 30px;
+`;
+
+const SearchBlock = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const Img = styled.div`
+  display: flex;
+  align-self: center;
+  margin-left: 10px;
+  width: 20px;
+  height: 20px;
+
+  &:hover {
+    cursor: pointer;
+
+    & path {
+      transition: 0.2s;
+
+      fill: #cf0101;
+    }
+  }
 `;

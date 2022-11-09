@@ -6,6 +6,8 @@ interface TextProps {
   bold?: boolean | undefined;
   pb?: number | null;
   pt?: number | null;
+  pr?: number | null;
+  pl?: number | null;
   mt?: number | null;
   mb?: number | null;
   align?: "center" | "start" | "end";
@@ -18,6 +20,8 @@ export default function Text({
   bold,
   pb = null,
   pt = null,
+  pr = null,
+  pl = null,
   align = "start",
   bb = "",
   mt = null,
@@ -29,6 +33,8 @@ export default function Text({
       bold={bold}
       pb={pb}
       pt={pt}
+      pr={pr}
+      pl={pl}
       mt={mt}
       mb={mb}
       align={align}
@@ -46,6 +52,8 @@ const P = styled.p<TextProps>`
   ${(p) => p.bold && "font-weight: 600;"}
   ${(p) => p.pt && `padding-top: ${p.pt}px;`}
   ${(p) => p.pb && `padding-bottom: ${p.pb}px;`}
+  ${(p) => p.pl && `padding-left: ${p.pl}px;`}
+  ${(p) => p.pr && `padding-right: ${p.pr}px;`}
   ${(p) => p.mt && `margin-top: ${p.mt}px;`}
   ${(p) => p.mb && `margin-bottom: ${p.mb}px;`}
   ${(p) => p.bb && `border-bottom: 1px solid ${p.bb};`}

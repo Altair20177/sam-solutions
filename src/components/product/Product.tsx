@@ -11,8 +11,8 @@ interface ProductInterface {
 export default function Product({ product }: ProductInterface) {
   const dispatch = useAppDispatch();
 
-  function addToCart(){
-    dispatch(addItemToCart(product))
+  function addToCart() {
+    dispatch(addItemToCart(product));
   }
 
   return (
