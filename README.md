@@ -1,3 +1,8 @@
+# About Project
+Стэк: React/Redux-toolkit, styled-components, TypeScript.
+Помимо основных требований, добавлены медиа-запросы (верстка адаптивная и отзывчивая)
+Добавлена пагинация
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
