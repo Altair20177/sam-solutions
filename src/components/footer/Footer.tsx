@@ -33,7 +33,7 @@ export default function Footer({ length }: FooterProps) {
       <Button size="xs" callback={prevPage}>
         <Text size={24}>Prev</Text>
       </Button>
-      <Text size={26} bold>
+      <Text pl={10} pr={10} size={26} bold>
         {productPage.currentPage}
       </Text>
       <Button size="xs" callback={nextPage}>
