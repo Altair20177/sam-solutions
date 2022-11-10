@@ -18,7 +18,11 @@ export default function Footer({ length }: FooterProps) {
   }
 
   function nextPage() {
-    if (productPage.currentPage === Math.ceil(length / 6)) return null;
+    if (
+      productPage.currentPage ===
+      Math.ceil(length / productPage.amountProductsToShow)
+    )
+      return null;
 
     dispatch(changeCurrentPage(productPage.currentPage + 1));
   }

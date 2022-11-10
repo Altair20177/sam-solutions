@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Cart from "./components/cart/Cart";
 import Catalog from "./components/catalog/Catalog";
@@ -98,10 +98,35 @@ function App() {
       price: "25",
       image: "./assets/pzkpfw-7.jpg",
     },
+    {
+      id: "12",
+      name: "Card L",
+      description:
+        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perspiciatis, alias!",
+      price: "10",
+      image: "./assets/kranvagn.jpg",
+    },
+    {
+      id: "13",
+      name: "Card M",
+      description:
+        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Totam magnam eum, repellat.",
+      price: "15",
+      image: "./assets/obj-277.jpg",
+    },
+    {
+      id: "14",
+      name: "Card N",
+      description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+      price: "25",
+      image: "./assets/obj-705a.jpg",
+    },
   ];
 
   const dispatch = useAppDispatch();
   const catalog = useAppSelector((state) => state.catalog);
+
+  const [searchInput, setSearchInput] = useState<string>("");
 
   useEffect(() => {
     dispatch(addProducts(products));
@@ -114,7 +139,7 @@ function App() {
       <Header />
       {catalog.allProducts.length !== 0 ? (
         <Main>
-          <Catalog />
+          <Catalog searchInput={searchInput} setSearchInput={setSearchInput} />
           <Cart />
         </Main>
       ) : (
@@ -123,9 +148,8 @@ function App() {
         </Text>
       )}
 
-      {catalog.allProducts.length / catalog.amountProductsToShow > 1 && (
-        <Footer length={products.length} />
-      )}
+      {catalog.allProducts.length / catalog.amountProductsToShow > 1 &&
+        searchInput.length === 0 && <Footer length={products.length} />}
     </>
   );
 }

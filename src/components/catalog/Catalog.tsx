@@ -12,16 +12,27 @@ enum Options {
   NAME = "name",
 }
 
-export default function Catalog() {
+interface CatalogProps {
+  searchInput: string;
+  setSearchInput: (str: string) => void;
+}
+
+export default function Catalog({
+  searchInput = "",
+  setSearchInput,
+}: CatalogProps) {
   const dispatch = useAppDispatch();
   const { currentPage, allProducts, amountProductsToShow } = useAppSelector(
     (state) => state.catalog
   );
 
-  const [searchInput, setSearchInput] = useState<string>("");
   const [sortParam, setSortParam] = useState<string>("");
   const [productsToShow, setProductsToShow] =
     useState<Array<ProductType>>(allProducts);
+
+  useEffect(() => {
+    setProductsToShow(calcArrayToShow(allProducts));
+  }, [allProducts, currentPage]);
 
   function calcArrayToShow(arrToSlice: ProductType[]) {
     return arrToSlice.slice(
@@ -29,10 +40,6 @@ export default function Catalog() {
       +currentPage * amountProductsToShow
     );
   }
-
-  useEffect(() => {
-    setProductsToShow(calcArrayToShow(allProducts));
-  }, [allProducts, currentPage]);
 
   function clearSearch() {
     setSearchInput("");
