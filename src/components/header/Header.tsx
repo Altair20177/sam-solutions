@@ -9,7 +9,7 @@ export default function Header() {
     <Head>
       <Container df>
         <Image src={logo} alt="logo" />
-        <Text size={34}>Better products - better service!</Text>
+        <Text pl={10} size={34}>Better products - better service!</Text>
         <Text size={34} bold>
           Rublick
         </Text>

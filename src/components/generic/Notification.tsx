@@ -8,7 +8,7 @@ interface NotificationProps {
 export default function Notification({ showMess = false }: NotificationProps) {
   return (
     <Wrapper showMess={showMess}>
-      <Text size={30} bold>
+      <Text size={30} bold align="center">
         Thank you for the purchase!
       </Text>
     </Wrapper>
@@ -29,4 +29,9 @@ const Wrapper = styled.div<NotificationProps>`
   top: 80%;
   left: 50%;
   transform: translate(-50%, -50%);
+
+  @media (max-width: 635px) {
+      width: 90%;
+      padding: 20px 40px;
+  }
 `;

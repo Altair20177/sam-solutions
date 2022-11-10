@@ -57,4 +57,16 @@ const P = styled.p<TextProps>`
   ${(p) => p.mt && `margin-top: ${p.mt}px;`}
   ${(p) => p.mb && `margin-bottom: ${p.mb}px;`}
   ${(p) => p.bb && `border-bottom: 1px solid ${p.bb};`}
+
+  @media (max-width: 895px) {
+    font-size: ${(p) => p.size ? p.size/1.5 : 14}px;
+  }
+
+  @media (max-width: 635px) {
+    font-size: ${(p) => p.size ? p.size/1.2 : 16}px;
+  }
+
+  @media (max-width: 400px) {
+    font-size: ${(p) => p.size ? p.size/1.4 : 14}px;
+  }
 `;

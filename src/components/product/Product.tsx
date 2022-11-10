@@ -39,6 +39,14 @@ const Card = styled.div`
   border-radius: 3px;
   position: relative;
   top: -1px;
+
+  @media (max-width: 895px) {
+    width: 200px;
+  }
+
+  @media (max-width: 635px) {
+    width: 100%;
+  }
 `;
 
 const Image = styled.img`
@@ -50,6 +58,11 @@ const Image = styled.img`
 const CardAbout = styled.div`
   padding: 10px 15px;
   height: 135px;
+
+  @media (max-width: 895px) {
+    height: 80px;
+    padding: 0 10px;
+  }
 `;
 
 const CardBottom = styled.div`

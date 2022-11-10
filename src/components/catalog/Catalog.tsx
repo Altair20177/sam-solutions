@@ -2,8 +2,10 @@ import styled from "styled-components";
 import { ProductType } from "../../types";
 import Product from "../product/Product";
 import { ReactComponent as Cross } from "../header/icons/cross.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Text from "../generic/Text";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { addProducts, changeCurrentPage } from "../../redux/catalogSlice";
 
 enum Options {
   PRICE = "price",
@@ -11,145 +13,73 @@ enum Options {
 }
 
 export default function Catalog() {
-  const products: Array<ProductType> = [
-    {
-      id: "1",
-      name: "Card 1",
-      description:
-        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perspiciatis, alias!",
-      price: "10",
-      image: "./assets/kranvagn.jpg",
-    },
-    {
-      id: "2",
-      name: "Card 2",
-      description:
-        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Totam magnam eum, repellat.",
-      price: "15",
-      image: "./assets/obj-277.jpg",
-    },
-    {
-      id: "3",
-      name: "Card 3",
-      description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-      price: "25",
-      image: "./assets/obj-705a.jpg",
-    },
-    {
-      id: "4",
-      name: "Card 4",
-      description:
-        "Lorem ipsum dolor sit, amet adipisicing elit. Perspiciatis, alias!",
-      price: "20",
-      image: "./assets/progetto-m35.jpg",
-    },
-    {
-      id: "5",
-      name: "Card 5",
-      description:
-        "Lorem ipsum dolor, sit amet consect. Totam magnam eum, repellat dignissimos cupiditate sequi.",
-      price: "15",
-      image: "./assets/pzkpfw-7.jpg",
-    },
-    {
-      id: "6",
-      name: "Card 6",
-      description:
-        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perspiciatis, alias!",
-      price: "10",
-      image: "./assets/t-55a.jpg",
-    },
-    {
-      id: "7",
-      name: "Card 7",
-      description:
-        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perspiciatis, alias!",
-      price: "15",
-      image: "./assets/kranvagn.jpg",
-    },
-    {
-      id: "8",
-      name: "Card 8",
-      description:
-        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perspiciatis, alias!",
-      price: "15",
-      image: "./assets/obj-277.jpg",
-    },
-    {
-      id: "9",
-      name: "Card 9",
-      description:
-        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perspiciatis, alias!",
-      price: "30",
-      image: "./assets/obj-705a.jpg",
-    },
-    {
-      id: "10",
-      name: "Card 10",
-      description:
-        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perspiciatis, alias!",
-      price: "5",
-      image: "./assets/progetto-m35.jpg",
-    },
-    {
-      id: "11",
-      name: "Card 11",
-      description:
-        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perspiciatis, alias!",
-      price: "25",
-      image: "./assets/pzkpfw-7.jpg",
-    },
-  ];
+  const dispatch = useAppDispatch();
+  const { currentPage, allProducts, amountProductsToShow } = useAppSelector(
+    (state) => state.catalog
+  );
 
   const [searchInput, setSearchInput] = useState<string>("");
   const [sortParam, setSortParam] = useState<string>("");
   const [productsToShow, setProductsToShow] =
-    useState<Array<ProductType>>(products);
+    useState<Array<ProductType>>(allProducts);
+
+  function calcArrayToShow(arrToSlice: ProductType[]) {
+    return arrToSlice.slice(
+      (+currentPage - 1) * amountProductsToShow,
+      +currentPage * amountProductsToShow
+    );
+  }
+
+  useEffect(() => {
+    setProductsToShow(calcArrayToShow(allProducts));
+  }, [allProducts, currentPage]);
 
   function clearSearch() {
     setSearchInput("");
-    setProductsToShow(products);
+    setProductsToShow(calcArrayToShow(allProducts));
   }
 
   function sortByParametr(param: string) {
     setSortParam(param);
+    const productsCopy = allProducts.slice();
 
     switch (param) {
       case Options.NAME: {
-        setProductsToShow(
-          products.sort((product1: ProductType, product2: ProductType) =>
-            product1.name > product2.name ? 1 : -1
-          )
+        productsCopy.sort((product1: ProductType, product2: ProductType) =>
+          product1.name > product2.name ? 1 : -1
         );
+
         break;
       }
       case Options.PRICE: {
-        setProductsToShow(
-          products.sort((product1: ProductType, product2: ProductType) =>
-            +product1.price > +product2.price ? 1 : -1
-          )
+        productsCopy.sort((product1: ProductType, product2: ProductType) =>
+          +product1.price > +product2.price ? 1 : -1
         );
+
         break;
       }
       default: {
-        setProductsToShow(products);
+        setProductsToShow(allProducts);
       }
     }
+
+    setProductsToShow(calcArrayToShow(productsCopy));
+
+    dispatch(addProducts(productsCopy));
+    dispatch(changeCurrentPage(1));
   }
 
   function onSearch(value: string) {
     setSearchInput(value);
 
-    setProductsToShow(
-      value !== ""
-        ? products.filter(
-            (product: ProductType) =>
-              product.name.toLowerCase().includes(value.toLowerCase()) ||
-              product.price.includes(value.toLowerCase()) ||
-              product.description.toLowerCase().includes(value.toLowerCase())
-          )
-        : products
+    const result = allProducts.filter(
+      (product: ProductType) =>
+        product.name.toLowerCase().includes(value.toLowerCase()) ||
+        product.price.includes(value.toLowerCase()) ||
+        product.description.toLowerCase().includes(value.toLowerCase())
     );
+
+    setProductsToShow(value !== "" ? result : calcArrayToShow(allProducts));
   }
 
   return (
@@ -181,7 +111,7 @@ export default function Catalog() {
             return <Product product={product} key={product.id} />;
           })
         ) : (
-          <Text bold size={36} mt={50}>
+          <Text bold size={36} mt={50} align="center">
             There are no such products!
           </Text>
         )}
@@ -197,6 +127,10 @@ const AllProducts = styled.div`
 
 const Div = styled.div`
   width: 75%;
+
+  @media (max-width: 635px) {
+    width: 65%;
+  }
 `;
 
 const Search = styled.input`
@@ -205,6 +139,10 @@ const Search = styled.input`
   border: 1px solid black;
   padding: 5px 10px;
   font-size: 18px;
+
+  @media (max-width: 635px) {
+    width: 150px;
+  }
 `;
 
 const Sort = styled.select`
@@ -219,6 +157,13 @@ const Top = styled.div`
   display: flex;
   justify-content: space-around;
   margin-bottom: 30px;
+
+  @media (max-width: 635px) {
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+  }
 `;
 
 const SearchBlock = styled.div`

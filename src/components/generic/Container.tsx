@@ -14,6 +14,10 @@ const Div = styled.div<ContainerProps>`
   margin: 0 auto;
   padding: 0 20px;
 
+  @media (max-width: 635px) {
+    padding: 0 10px;
+  }
+
   ${(p) =>
     p.df &&
     css`
