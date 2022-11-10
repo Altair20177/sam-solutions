@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Text from "./Text";
 
-interface NotificationProps {
+interface NotificationProps extends React.HTMLAttributes<HTMLDivElement>  {
   showMess: boolean;
 }
 

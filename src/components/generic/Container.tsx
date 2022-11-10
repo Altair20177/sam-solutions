@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-interface ContainerProps {
+interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
   children: any;
   df?: boolean | undefined;
 }

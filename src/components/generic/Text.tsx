@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 
-interface TextProps {
-  children: any;
+interface TextProps extends React.HTMLAttributes<HTMLParagraphElement> {
+  children: React.ReactNode;
   size?: number;
   bold?: boolean | undefined;
   pb?: number | null;
@@ -59,14 +59,14 @@ const P = styled.p<TextProps>`
   ${(p) => p.bb && `border-bottom: 1px solid ${p.bb};`}
 
   @media (max-width: 895px) {
-    font-size: ${(p) => p.size ? p.size/1.5 : 14}px;
+    font-size: ${(p) => (p.size ? p.size / 1.5 : 14)}px;
   }
 
   @media (max-width: 635px) {
-    font-size: ${(p) => p.size ? p.size/1.2 : 16}px;
+    font-size: ${(p) => (p.size ? p.size / 1.2 : 16)}px;
   }
 
   @media (max-width: 400px) {
-    font-size: ${(p) => p.size ? p.size/1.4 : 14}px;
+    font-size: ${(p) => (p.size ? p.size / 1.4 : 14)}px;
   }
 `;

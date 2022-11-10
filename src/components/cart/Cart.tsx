@@ -6,6 +6,7 @@ import {
 } from "../../redux/cartSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { ProductType } from "../../types";
+import Button from "../generic/Button";
 import Notification from "../generic/Notification";
 import Text from "../generic/Text";
 import cross from "../header/icons/cross.svg";
@@ -83,7 +84,11 @@ export default function Cart() {
               $ {finishSum()}
             </Text>
           </Total>
-          <Checkout onClick={buyProducts}>Checkout</Checkout>
+          <Button buttonType="checkout" size="md" callback={buyProducts}>
+            <Text bold align="center" size={20}>
+              Checkout
+            </Text>
+          </Button>
         </Footer>
       </CartSection>
 
@@ -159,22 +164,6 @@ const Total = styled.div`
 
   @media (max-width: 400px) {
     padding: 0 5px;
-  }
-`;
-
-const Checkout = styled.button`
-  width: 100%;
-  margin: 0 auto;
-  height: 50px;
-  border-radius: 3px;
-  border: 1px solid black;
-  font-size: 20px;
-  transition: 0.3s;
-
-  &:hover {
-    cursor: pointer;
-    color: white;
-    background-color: black;
   }
 `;
 

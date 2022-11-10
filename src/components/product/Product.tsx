@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { addItemToCart } from "../../redux/cartSlice";
 import { useAppDispatch } from "../../redux/hooks";
 import { ProductType } from "../../types";
+import Button from "../generic/Button";
 import Text from "../generic/Text";
 
 interface ProductInterface {
@@ -26,7 +27,9 @@ export default function Product({ product }: ProductInterface) {
       </CardAbout>
       <CardBottom>
         <Text>{product.price} $</Text>
-        <Button onClick={addToCart}>Buy</Button>
+        <Button size="sm" callback={addToCart} buttonType="buy">
+          <Text bold>Buy</Text>
+        </Button>
       </CardBottom>
     </Card>
   );
@@ -70,19 +73,4 @@ const CardBottom = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-`;
-
-const Button = styled.button`
-  padding: 5px 13px;
-  border-radius: 3px;
-  border: 1px solid black;
-  transition: 0.2s;
-  font-weight: bold;
-  letter-spacing: 1.2px;
-
-  &:hover {
-    color: white;
-    background: black;
-    letter-spacing: 4px;
-  }
 `;

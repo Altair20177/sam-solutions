@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { changeCurrentPage } from "../../redux/catalogSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import Button from "../generic/Button";
 import Text from "../generic/Text";
 
 interface FooterProps {
@@ -29,11 +30,15 @@ export default function Footer({ length }: FooterProps) {
 
   return (
     <Pagination>
-      <Button onClick={prevPage}>Prev</Button>
+      <Button size="xs" callback={prevPage}>
+        <Text size={24}>Prev</Text>
+      </Button>
       <Text size={26} bold>
         {productPage.currentPage}
       </Text>
-      <Button onClick={nextPage}>Next</Button>
+      <Button size="xs" callback={nextPage}>
+        <Text size={24}>Next</Text>
+      </Button>
     </Pagination>
   );
 }
@@ -45,11 +50,4 @@ const Pagination = styled.div`
   align-items: center;
   justify-content: space-between;
   padding-bottom: 30px;
-`;
-
-const Button = styled.button`
-  font-size: 24px;
-  padding: 5px 5px;
-  border: 1px solid black;
-  border-radius: 5px;
 `;
